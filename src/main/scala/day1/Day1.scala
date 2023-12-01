@@ -8,15 +8,18 @@ object Day1:
     .fromIterator(Source.fromResource(path).getLines())
 
   def part1(input: Chunk[String]): Int =
-    input.map(firstLastNumber).sum
+    input.flatMap(getNumber).sum
+
   def part2(input: Chunk[String]): Int =
-    input.map(replaceWithNumberPad).map(firstLastNumber).sum
+    input.map(replaceWithDigit).flatMap(getNumber).sum
 
-  private def firstLastNumber(line: String) =
+  private def getNumber(line: String) =
     val numbers = line.filter(_.isDigit)
-    s"${numbers.head}${numbers.last}".toInt
+    (numbers.headOption, numbers.lastOption) match
+      case (Some(head), Some(last)) => s"$head$last".toIntOption
+      case _                        => throw new RuntimeException(s"Invalid input: $line")
 
-  private def replaceWithNumberPad(line: String) =
+  private def replaceWithDigit(line: String) =
     line
       .replaceAll("one", "one1one")
       .replaceAll("two", "two2two")
