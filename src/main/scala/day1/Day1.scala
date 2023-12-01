@@ -1,16 +1,15 @@
 package day1
 
-import zio.Chunk
 import scala.io.Source
 
 object Day1:
-  def readInput(path: String): Chunk[String] = Chunk
-    .fromIterator(Source.fromResource(path).getLines())
+  def readInput(path: String): Iterator[String] =
+    Source.fromResource(path).getLines()
 
-  def part1(input: Chunk[String]): Int =
+  def part1(input: Iterator[String]): Int =
     input.flatMap(getNumber).sum
 
-  def part2(input: Chunk[String]): Int =
+  def part2(input: Iterator[String]): Int =
     input.map(replaceWithDigit).flatMap(getNumber).sum
 
   private def getNumber(line: String) =
@@ -25,7 +24,7 @@ object Day1:
       .replaceAll("two", "two2two")
       .replaceAll("three", "three3three")
       .replaceAll("four", "four4four")
-      .replaceAll("five", "five5five")
+      .replaceAll(j"five", "five5five")
       .replaceAll("six", "six6six")
       .replaceAll("seven", "seven7seven")
       .replaceAll("eight", "eight8eight")
