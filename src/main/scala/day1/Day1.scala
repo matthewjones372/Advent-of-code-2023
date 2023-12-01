@@ -18,15 +18,19 @@ object Day1:
       case (Some(head), Some(last)) => s"$head$last".toInt
       case _                        => throw new RuntimeException(s"Invalid input: $line")
 
+  private val replacements = Map(
+    "one"   -> "one1one",
+    "two"   -> "two2two",
+    "three" -> "three3three",
+    "four"  -> "four4four",
+    "five"  -> "five5five",
+    "six"   -> "six6six",
+    "seven" -> "seven7seven",
+    "eight" -> "eight8eight",
+    "nine"  -> "nine9nine",
+    "zero"  -> "zero0zero"
+  )
   private def replaceWithDigit(line: String) =
-    line
-      .replaceAll("one", "one1one")
-      .replaceAll("two", "two2two")
-      .replaceAll("three", "three3three")
-      .replaceAll("four", "four4four")
-      .replaceAll("five", "five5five")
-      .replaceAll("six", "six6six")
-      .replaceAll("seven", "seven7seven")
-      .replaceAll("eight", "eight8eight")
-      .replaceAll("nine", "nine9nine")
-      .replaceAll("zero", "zero0zero")
+    replacements.foldLeft(line) { case (acc, (key, value)) =>
+      acc.replaceAll(key, value)
+    }
