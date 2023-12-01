@@ -7,15 +7,15 @@ object Day1:
     Source.fromResource(path).getLines()
 
   def part1(input: Iterator[String]): Int =
-    input.flatMap(getNumber).sum
+    input.map(getNumber).sum
 
   def part2(input: Iterator[String]): Int =
-    input.map(replaceWithDigit).flatMap(getNumber).sum
+    input.map(replaceWithDigit).map(getNumber).sum
 
   private def getNumber(line: String) =
     val numbers = line.filter(_.isDigit)
     (numbers.headOption, numbers.lastOption) match
-      case (Some(head), Some(last)) => s"$head$last".toIntOption
+      case (Some(head), Some(last)) => s"$head$last".toInt
       case _                        => throw new RuntimeException(s"Invalid input: $line")
 
   private def replaceWithDigit(line: String) =
@@ -24,7 +24,7 @@ object Day1:
       .replaceAll("two", "two2two")
       .replaceAll("three", "three3three")
       .replaceAll("four", "four4four")
-      .replaceAll(j"five", "five5five")
+      .replaceAll("five", "five5five")
       .replaceAll("six", "six6six")
       .replaceAll("seven", "seven7seven")
       .replaceAll("eight", "eight8eight")

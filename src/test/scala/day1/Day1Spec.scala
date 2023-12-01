@@ -1,6 +1,5 @@
 package day1
 
-import zio.test.ZIOSpecDefault
 import zio.test.Assertion.*
 import zio.test.*
 
